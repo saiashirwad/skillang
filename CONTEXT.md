@@ -18,6 +18,22 @@ The harness and project that one compilation produces skills for.
 **Fact**:
 A typed value about the target, such as the harness, the package manager, or whether the session runs in Herdr.
 
+**Static fact**:
+A fact known at compile time; every branch on it is flattened away.
+
+**Dynamic fact**:
+A fact known only while the agent runs; branches on it stay in the output as prose conditions.
+
+**Instruction**:
+The prose part of a skill, which the agent reads.
+
+**Action**:
+The code part of a skill: a typed function that the interpreter runs when the agent calls it.
+_Avoid_: Script, command
+
+**Built-in**:
+A typed operation the interpreter provides to actions, such as creating a GitHub issue or reading a file.
+
 **Capability**:
 A power a skill needs and a target provides, such as running shell commands or writing to GitHub.
 _Avoid_: Permission, tool
