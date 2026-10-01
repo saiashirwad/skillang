@@ -34,9 +34,16 @@ _Avoid_: Script, command
 **Built-in**:
 A typed operation the interpreter provides to actions, such as creating a GitHub issue or reading a file.
 
-**Capability**:
-A power a skill needs and a target provides, such as running shell commands or writing to GitHub.
-_Avoid_: Permission, tool
+**Effect**:
+A power that an action uses and a target handles, such as running shell commands or writing to GitHub.
+_Avoid_: Capability, permission, tool
+
+**Signature**:
+The typed inputs and output of a skill; the agent running the skill fills in the output and returns it to the interpreter, which checks it.
+
+**Extern**:
+A typed declaration of an external command, such as a `gh` subcommand, including how its output is decoded.
+_Avoid_: Wrapper, binding
 
 **Flattening**:
 Removing every branch of a skill that the known facts rule out, so the agent reads only what applies to its target.
