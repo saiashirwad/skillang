@@ -25,11 +25,17 @@ _Avoid_: Static, dynamic
 **Phrase**:
 The prose a fact declares for each of its values, used when a branch on it stays in the output.
 
+**Unknown fact**:
+A fact with no value in the current build; it can only be a `when` condition, never interpolated.
+
 **Instruction**:
 The prose part of a skill, which the agent reads.
 
 **Outline**:
 A tree of prose items, each a line starting with `- `; the value that a skill's instructions evaluate to.
+
+**Literal block**:
+A verbatim part of an outline, such as a template or fenced example, in which nothing is interpreted.
 _Avoid_: Template, body, text block
 
 **Action**:
@@ -44,7 +50,14 @@ A power that an action uses and a target handles, such as running shell commands
 _Avoid_: Capability, permission, tool
 
 **Signature**:
-The typed inputs and output of a skill; the agent running the skill fills in the output and returns it to the interpreter, which checks it.
+The typed input and output of a skill, written `Skill Input Output`; most skills use `Skill Unit Unit`.
+
+**Invocation**:
+One run of a skill by an agent; a skill with an output is returned per invocation, so two runs of one skill never mix.
+
+**Action reference**:
+A mention of an action inside an outline; it renders how to run the action and is never executed at build time.
+_Avoid_: Action call
 
 **Extern**:
 A typed declaration of an external command, such as a `gh` subcommand, including how its output is decoded.
