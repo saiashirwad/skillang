@@ -1,0 +1,9 @@
+-- A blank line does not end a nested list.
+example : Outline
+example =
+  - Parent.
+    - First.
+
+    - Second.
+      | Still second.
+  - Sibling.

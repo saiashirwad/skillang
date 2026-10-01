@@ -1,0 +1,33 @@
+-- Translated from ~/.agents/skills/delegate/SKILL.md; instruction wording retained.
+fact harness : Harness session
+--| Delegate independent lookups, research, reviews, prototypes and chores to Pi in Herdr.
+delegate : Skill Unit Unit
+delegate =
+  - Scripts are in `~/.agents/skills/delegate/scripts/`
+  - Write a standalone brief with the task, sources and acceptance criteria
+    - Lookup: use `--model light`; ask for `file:line` or URLs
+    - Research: use `--rift research/<slug>`; follow `research`; commit and push `docs/research/<slug>.md`
+    - Review: name the diff or branch; ask for `file:line`, what breaks and how
+    - Prototype: use `--rift prototype/<slug>`; follow `prototype`; push; ask for run instructions
+    - Chore: use `--rift chore/<slug>`; commit
+  - `spawn <name> <brief.md> [--rift <branch>] [--model light|hard] [--cwd <dir>]`
+    - Use `--rift` for all repo writes; it copies the checkout with uncommitted work
+    - Use `hard` for verification or when the default fails; tiers are in `models`
+  - `await <job> [minutes=60]`; it prints the TL;DR and the next step
+    when harness == ClaudeCode
+      - In Claude Code
+        - Run each `await` with Bash `run_in_background`, one per job
+        - Return to the user; the exit wakes you
+    else
+      - Outside Claude Code: poll until the job ends or the user must decide
+    - When done, inspect the actual work
+      - Read `result.md` only for detail you need
+  - `followup <job> "message"`, then `await` again
+  - `land <job>` copies a Rift branch into the source repo; it does not merge
+    - Before you merge more than small docs, spawn a `hard` adversarial verifier
+      - Tell the user the findings that have evidence
+  - `finish <job>` when no work remains, also for read-only jobs
+    - It closes the tab and removes the Rift; it keeps branches and reports
+    - Do not finish blocked or unresolved jobs
+  - After compaction, run `jobs` to see state
+    - Start `await` again for each unfinished job

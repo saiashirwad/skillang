@@ -1,0 +1,5 @@
+-- An unterminated interpolation reports its opening, without consuming the next item.
+example : Outline
+example =
+  - Read ${broken
+  - This is an independent later line.

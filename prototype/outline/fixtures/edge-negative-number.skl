@@ -1,0 +1,7 @@
+-- Unary minus in when/interpolation is code, not an outline bullet.
+example : Outline
+example =
+  when count > -2
+    - Count: ${-3}.
+  else
+    - A negative test.

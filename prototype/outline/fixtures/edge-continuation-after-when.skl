@@ -1,0 +1,9 @@
+-- A continuation after when attaches to the preceding item, not the conditional.
+example : Outline
+example =
+  - Parent.
+    when ready
+      | when and else here are still prose.
+      - Child.
+    else
+      - Alternative.

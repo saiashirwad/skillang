@@ -1,0 +1,6 @@
+{
+  "name": "throwaway-outline-layout",
+  "private": true,
+  "type": "module",
+  "dependencies": { "parserator": "0.3.0" }
+}

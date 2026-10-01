@@ -1,0 +1,5 @@
+-- The word when after a bullet is prose, not code.
+example : Outline
+example =
+  - when you feel the pull
+    | else is prose here too.

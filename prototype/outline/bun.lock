@@ -1,0 +1,15 @@
+{
+  "lockfileVersion": 2,
+  "configVersion": 1,
+  "workspaces": {
+    "": {
+      "name": "throwaway-outline-layout",
+      "dependencies": {
+        "parserator": "0.3.0",
+      },
+    },
+  },
+  "packages": {
+    "parserator": ["parserator@0.3.0", "", {}, "sha512-9kL4nFTmbVmR4f4m8TjPmMxDKD+PW9R1ZNmUZsCjlBWy66l9Y5MNJflJlfHKwnG+fNrzUnTwDeQOHJv/EZu8Cg=="],
+  }
+}

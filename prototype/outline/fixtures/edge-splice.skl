@@ -1,0 +1,7 @@
+-- Splices retain current depth inside a when; expansion/rebasing is not evaluated.
+example : Outline
+example =
+  when ready
+    ..shared
+  else
+    - Wait.

@@ -1,0 +1,7 @@
+-- Else must align with when (not with its branch item).
+example : Outline
+example =
+  when ready
+    - Go.
+    else
+      - Wait.

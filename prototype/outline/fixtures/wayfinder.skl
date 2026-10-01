@@ -1,0 +1,78 @@
+-- Translated from ~/.agents/skills/wayfinder/SKILL.md; instruction wording retained.
+fact inHerdr : Bool session
+--| Plan work too big for one session as a map of decision tickets on GitHub issues, resolving one ticket per session until the way to the destination is clear.
+wayfinder : Skill Unit Unit
+wayfinder =
+  - Use wayfinder when a loose idea is too big for one session and the way to its destination is not visible yet
+  - Wayfinder plans; it does not build
+    - When you feel the pull to do the work, you are at the edge of the map; hand off
+    - A map's Notes can override these rules
+  - Scripts are in `~/.agents/skills/wayfinder/scripts/`; run them in the repo
+  - In anything the user reads, refer to an issue by its linked title, never by bare number
+  - A map is a GitHub issue labelled `wayfinder:map`; its tickets are sub-issues
+    - The map is an index: each decision lives only in its ticket
+    - Do not list open tickets on the map; `show` queries them
+  - Map body:
+
+    literal
+      ```markdown
+      ## Destination
+      <what done looks like: a spec, a locked decision, or a change. One or two lines.>
+
+      ## Notes
+      <domain; skills every session should use; standing preferences>
+
+      ## Decisions so far
+      - [<closed ticket title>](url): <one-line gist>
+
+      ## Not yet specified
+      <fog: in-scope questions not yet sharp enough to ticket>
+
+      ## Out of scope
+      - [<closed ticket title>](url): <gist, and why it is out>
+      ```
+
+  - A ticket is a question whose answer is a decision, sized to one session
+    - Body: `## Question`, then what the question needs
+    - `research` (AFK): facts from outside the repo; delegate a Research job
+    - `prototype` (HITL): a cheap artifact to react to, when the question is how something should look or behave
+      - Delegate the build as a Prototype job; then settle it with the user
+    - `grilling` (HITL, the default): a conversation with `grilling` and `domain-modeling`
+      - Never answer the user's side yourself
+    - `task` (AFK): work that must happen before a decision (sign up, provision, move data)
+      - Delegate what an agent can do alone as a Chore job; give the user a checklist for the rest
+  - A ticket is on the frontier when it is open, unblocked and unassigned
+  - Ticket a question when you can state it sharply now, even if it is blocked
+    - Otherwise keep it in Not yet specified
+  - Work past the destination is out of scope
+    - Resolve its ticket with `--out-of-scope`; it never returns to this map
+  - Delegate AFK tickets with the `delegate` skill
+    when inHerdr
+      - Research uses `--rift research/<slug>`; Pi commits `docs/research/<slug>.md` and pushes the branch
+      - Pi does not touch the ticket or the map; when the job is done, inspect the work and run `resolve`
+    else
+      - Outside Herdr: leave AFK tickets open; tell the user which ones wait for a Herdr session
+  - Chart a map (the user brings an idea)
+    - Pin the destination with `grilling` and `domain-modeling`
+    - Grill breadth-first for the open decisions
+      - If there is no fog, you do not need a map; ask the user how to continue
+    - Run `map`; write Notes and fog with `gh issue edit <map> --body-file -`
+    - Run `ticket` for each question you can state; then run `block` in a second pass
+    - Delegate every research ticket, then stop; charting resolves nothing
+  - Work a map (the user brings a map)
+    - Run `show <map>`; read the map body, not every ticket
+    - Take the named ticket, or the first HITL ticket on the frontier; `claim` it before any work
+    - Delegate the AFK tickets on the frontier; they can run in parallel
+    - Resolve the ticket; zoom into related tickets as needed and use the skills Notes names
+    - Run `resolve` with the answer and a one-line gist
+    - Ticket and `block` questions that are now sharp; clear the fog they came from
+    - Resolve tickets that are now out of scope; fix tickets the decision invalidated
+    - Resolve one HITL ticket per session
+    - Other sessions can edit the map at the same time
+  - Scripts
+    - `map <title> <destination>` creates a map with empty sections
+    - `ticket <map> <type> <title> < body` creates and labels a ticket and adds it to the map
+    - `block <ticket> <blocker...>` marks the ticket as blocked by each blocker
+    - `show <map>` prints the map body and the open tickets, grouped as frontier, blocked and claimed
+    - `claim <ticket>` assigns the ticket to you; it fails if someone else has it
+    - `resolve <ticket> <gist> [--out-of-scope] < answer` comments the answer, closes the ticket and adds the gist line to Decisions so far or Out of scope

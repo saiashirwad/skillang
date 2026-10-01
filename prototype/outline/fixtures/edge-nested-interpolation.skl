@@ -1,0 +1,5 @@
+-- Nested braces and a quoted string containing } do not end interpolation early.
+example : Outline
+example =
+  - Read ${render { title: "}", nested: { count: -2 } }} now.
+    | Also ${render { title: "escaped \" }", value: 1 }}.

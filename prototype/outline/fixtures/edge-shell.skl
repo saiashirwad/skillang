@@ -1,0 +1,9 @@
+-- Shell ${HOME} is an interpolation in prose, but raw inside literal.
+example : Outline
+example =
+  - Run `echo ${HOME}`.
+    literal
+      ```sh
+      echo ${HOME}
+      when else ..name $${
+      ```

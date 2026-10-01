@@ -1,0 +1,5 @@
+-- $${ escapes a literal ${ in both prose and continuation.
+example : Outline
+example =
+  - Run echo $${HOME}; then ${path}.
+    | Adjacent escapes: $${one}$${two}.
