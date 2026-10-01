@@ -27,6 +27,10 @@ A fact known only while the agent runs; branches on it stay in the output as pro
 **Instruction**:
 The prose part of a skill, which the agent reads.
 
+**Outline**:
+A tree of prose items, each a line starting with `- `; the value that a skill's instructions evaluate to.
+_Avoid_: Template, body, text block
+
 **Action**:
 The code part of a skill: a typed function that the interpreter runs when the agent calls it.
 _Avoid_: Script, command
