@@ -35,7 +35,7 @@ The prose part of a skill, which the agent reads.
 A tree of prose items, each a line starting with `- `; the value that a skill's instructions evaluate to.
 
 **Literal block**:
-A verbatim part of an outline, such as a template or fenced example, in which nothing is interpreted.
+A fenced block under an outline item, such as a template or example, in which nothing is interpreted.
 _Avoid_: Template, body, text block
 
 **Action**:
